@@ -59,7 +59,7 @@ $(document).ready(function() {
             buyer_postcode: "123-456",
             m_redirect_url: '{% url "payment_app:payment_success" order.id %}',
         }, function (rsp) {
-            if (rsp.error) {
+            if (rsp.error_code) {
                 alert('결제에 실패하였습니다. 에러내용 : ' + rsp.error_msg);
                 window.location.href = '{% url "payment_app:payment_fail" order_id=order.id %}';
             } else {

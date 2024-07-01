@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import OrderItem
 from .forms import OrderCreateForm
-# from .tasks import order_created
 from cart_app.cart import Cart
 from django.contrib.auth.decorators import login_required
 
@@ -17,10 +16,8 @@ def order_create(request):
                                          product=item['product'],
                                          price=item['price'],
                                          quantity=item['quantity'])
-            # clear the cart
+            # 주문 생성 후 장바구니 비우기
             cart.clear()
-            # launch asynchronous task
-            # order_created.delay(order.id)
             return redirect('payment_app:payment_form', order_id=order.id)
     else:
         form = OrderCreateForm()

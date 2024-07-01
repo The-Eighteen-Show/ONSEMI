@@ -41,8 +41,12 @@ class Cart:
             self.cart[product_id]['quantity'] += quantity
         self.save()
 
+        if self.cart[product_id]['quantity'] > product.stock:
+            self.cart[product_id]['quantity'] = product.stock
+            self.save()
+            return True
+
     def save(self):
-        # mark the session as "modified" to make sure it gets saved
         self.session.modified = True
 
     def remove(self, product):
